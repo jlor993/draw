@@ -49,8 +49,8 @@ var draw = (function() {
 
         //Write the x,y coods to the target div
         writeXY: function() {
-        document.getElementById('trackX').innerHTML = 'X: ' + x;
-        document.getElementById('trackY').innerHTML = 'Y: ' + y;
+            document.getElementById('trackX').innerHTML = 'X: ' + x;
+            document.getElementById('trackY').innerHTML = 'Y: ' + y;
         },
 
         getCanvas: function(){
@@ -77,7 +77,7 @@ var draw = (function() {
 
         //Sets the shape to be drawn
         setShape: function(shp) {
-        shape = shp;
+            shape = shp;
         },
 
         setIsDrawing: function(bool) {
@@ -96,6 +96,8 @@ var draw = (function() {
                 this.drawPath();
             } else if( shape==='circle' ) {
                 this.drawCircle();
+            } else if( shape==='triangle' ) {
+                this.drawTriangle();
             } else {
                 alert('Please choose a shape');
             }
@@ -113,6 +115,21 @@ var draw = (function() {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
+            ctx.stroke();
+        },
+
+        //Draw a path
+        drawPath: function() {
+            //console.log({x1:x,y1:y,x2:x2,y2:y2});
+            if(document.getElementById("rndColor").checked) {
+                ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.strokeStyle = document.getElementById("colorBox").value;
+            }
+            ctx.beginPath();
+            ctx.moveTo(lx, ly);
+            ctx.lineTo(x, y);
             ctx.stroke();
         },
 
@@ -148,19 +165,20 @@ var draw = (function() {
             ctx.fill();
         },
 
-        //Draw a path
-        drawPath: function() {
-            //console.log({x1:x,y1:y,x2:x2,y2:y2});
+        //Draw a triangle
+        drawTriangle: function() {
             if(document.getElementById("rndColor").checked) {
-                ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+                ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
             }
             else {
-                ctx.strokeStyle = document.getElementById("colorBox").value;
+                ctx.fillStyle = document.getElementById("colorBox").value;
             }
+
             ctx.beginPath();
-            ctx.moveTo(lx, ly);
-            ctx.lineTo(x, y);
-            ctx.stroke();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x1, y2);
+            ctx.fill();
         },
 
         //Initialize the object, this must be called before anything else
@@ -168,6 +186,7 @@ var draw = (function() {
             canvas.width = mWidth;
             canvas.height = mHeight;
             document.querySelector('main').appendChild(canvas);
+            this.writeXY();
         }
     };
 })();
@@ -202,6 +221,10 @@ document.getElementById('btnLine').addEventListener('click',function(){
     draw.setShape('line');
 }, false);
 
+document.getElementById('btnPath').addEventListener('click', function(){
+    draw.setShape('path');
+}, false);
+
 document.getElementById('btnRect').addEventListener('click',function(){
     draw.setShape('rectangle');
 }, false);
@@ -210,6 +233,6 @@ document.getElementById('btnCircle').addEventListener('click', function(){
     draw.setShape('circle');
 }, false);
 
-document.getElementById('btnPath').addEventListener('click', function(){
-    draw.setShape('path');
+document.getElementById('btnTriangle').addEventListener('click', function(){
+    draw.setShape('triangle');
 }, false);
