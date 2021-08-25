@@ -104,8 +104,12 @@ var draw = (function() {
 
         //Draw a line
         drawLine: function() {
-            //Start by using random fill colors.
-            ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if(document.getElementById("rndColor").checked) {
+                ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.strokeStyle = document.getElementById("colorBox").value;
+            }
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
@@ -114,15 +118,25 @@ var draw = (function() {
 
         //Draw a rectangle
         drawRect: function(x,y,h,w) {
-            //Start by using random fill colors.
-            ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if(document.getElementById("rndColor").checked) {
+                ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.fillStyle = document.getElementById("colorBox").value;
+            }
             ctx.fillRect (x1,y1,(x2-x1),(y2-y1));
         },
 
         //Draw a circle
         drawCircle: function() {
-            ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
-            ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if(document.getElementById("rndColor").checked) {
+                ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+                ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.strokeStyle = document.getElementById("colorBox").value;
+                ctx.fillStyle = document.getElementById("colorBox").value;
+            }
 
             let a = (x1-x2)
             let b = (y1-y2)
@@ -137,8 +151,12 @@ var draw = (function() {
         //Draw a path
         drawPath: function() {
             //console.log({x1:x,y1:y,x2:x2,y2:y2});
-            //Start by using random fill colors.
-            ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if(document.getElementById("rndColor").checked) {
+                ctx.strokeStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.strokeStyle = document.getElementById("colorBox").value;
+            }
             ctx.beginPath();
             ctx.moveTo(lx, ly);
             ctx.lineTo(x, y);
