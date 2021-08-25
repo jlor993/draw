@@ -98,6 +98,8 @@ var draw = (function() {
                 this.drawCircle();
             } else if( shape==='triangle' ) {
                 this.drawTriangle();
+            } else if( shape==='r_triangle' ) {
+                this.drawRightTriangle();
             } else {
                 alert('Please choose a shape');
             }
@@ -176,6 +178,22 @@ var draw = (function() {
 
             ctx.beginPath();
             ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y1);
+            ctx.lineTo((x1+x2)/2, y2);
+            ctx.fill();
+        },
+
+        //Draw a right triangle
+        drawRightTriangle: function() {
+            if(document.getElementById("rndColor").checked) {
+                ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.fillStyle = document.getElementById("colorBox").value;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.lineTo(x1, y2);
             ctx.fill();
@@ -235,4 +253,8 @@ document.getElementById('btnCircle').addEventListener('click', function(){
 
 document.getElementById('btnTriangle').addEventListener('click', function(){
     draw.setShape('triangle');
+}, false);
+
+document.getElementById('btnRTriangle').addEventListener('click', function(){
+    draw.setShape('r_triangle');
 }, false);
