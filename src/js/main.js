@@ -100,6 +100,8 @@ var draw = (function() {
                 this.drawTriangle();
             } else if( shape==='r_triangle' ) {
                 this.drawRightTriangle();
+            } else if( shape==='text' ) {
+                this.drawText();
             } else {
                 alert('Please choose a shape');
             }
@@ -199,6 +201,19 @@ var draw = (function() {
             ctx.fill();
         },
 
+        //Draw text
+        drawText: function() {
+            if(document.getElementById("rndColor").checked) {
+                ctx.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            else {
+                ctx.fillStyle = document.getElementById("colorBox").value;
+            }
+
+            ctx.font = '48px arial';
+            ctx.fillText(document.getElementById('textBox').value, x1, y1);
+        },
+
         //Initialize the object, this must be called before anything else
         init: function() {
             canvas.width = mWidth;
@@ -257,4 +272,8 @@ document.getElementById('btnTriangle').addEventListener('click', function(){
 
 document.getElementById('btnRTriangle').addEventListener('click', function(){
     draw.setShape('r_triangle');
+}, false);
+
+document.getElementById('btnText').addEventListener('click', function(){
+    draw.setShape('text');
 }, false);
