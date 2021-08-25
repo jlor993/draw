@@ -211,7 +211,7 @@ var draw = (function() {
             }
 
             ctx.font = '48px arial';
-            ctx.fillText(document.getElementById('textBox').value, x1, y1);
+            ctx.fillText(document.getElementById('textBox').value, x2, y2);
         },
 
         //Initialize the object, this must be called before anything else
